@@ -13,6 +13,11 @@
 .header strong {
   margin-left: 1rem;
   font-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.header strong:hover {
+  opacity: 0.8;
 }
 
 @keyframes logo-spin {
@@ -26,4 +31,9 @@
 
 .logo {
   animation: logo-spin infinite 5s linear;
+  transition: all 0.5s ease-in-out;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em var(--green-500));
 }

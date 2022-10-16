@@ -3,7 +3,7 @@ import styles from "./Post.module.css";
 export function Post() {
   return (
     <article className={styles.post}>
-      <header>
+      <header className={styles.header}>
         <div className={styles.author}>
           <img
             className={styles.avatar}
@@ -27,10 +27,12 @@ export function Post() {
           no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
         </p>
         <p>
-          👉<a href="#1">jane.design/doctorcare</a>
+          👉 <a href="#1">jane.design/doctorcare</a>
         </p>
         <p>
-          <a href="#2">#novoprojeto #nlw #rocketseat</a>
+          <a href="#novoprojeto">#novoprojeto</a>
+          <a href="#nlw">#nlw</a>
+          <a href="#rocketseat">#rocketseat</a>
         </p>
       </div>
     </article>

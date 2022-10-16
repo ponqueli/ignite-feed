@@ -1,7 +1,9 @@
 .sidebar{
   background-color: var(--gray-800);
   border-radius: 8px;
-  overflow: hidden; 
+  overflow: hidden;
+  position: sticky;
+  top: 7.5rem;
 }
 
 .sidebar footer{

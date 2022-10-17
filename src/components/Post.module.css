@@ -90,10 +90,6 @@
   line-height: 1.4;
 }
 
-.comentForm textarea:focus{
-  outline: 2px solid var(--green-500);
-}
-
 .comentForm button[type="submit"]{
   padding: 1rem 1.5rem;
   margin-top: 1rem;

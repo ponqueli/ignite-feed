@@ -105,3 +105,13 @@
 .comentForm button[type="submit"]:hover{
   background: var(--green-300);
 }
+
+.comentForm footer{
+  visibility: hidden;
+  max-height: 0;
+}
+
+.comentForm:focus-within footer{
+  visibility: visible;
+  max-height: none;
+}

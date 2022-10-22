@@ -5,24 +5,13 @@ import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
 
-interface IPostProps {
-  post: {
-    author: {
-      name: string;
-      avatarUrl: string;
-      role: string;
-    };
-    publishedAt: Date;
-    content: {
-      id: number;
-      type: "paragraph" | "link" | "hashtag";
-      content: string;
-      url?: string;
-    }[];
-  };
+interface IPostContent {
+  id: number;
+  type: "paragraph" | "link" | "hashtag";
+  content: string;
+  url?: string;
 }
-
-export function Post({ post }: IPostProps) {
+export function Post({ post }: any) {
   const { author, publishedAt, content } = post;
   const { name, avatarUrl, role } = author;
   const [newCommentText, setNewCommentText] = useState("");
@@ -76,19 +65,19 @@ export function Post({ post }: IPostProps) {
       </header>
 
       <div className={styles.content}>
-        {content.map(({ id, content: text, url, type }) => {
-          if (type === "paragraph") {
-            return <p key={id}>{text}</p>;
+        {content.map((item: IPostContent) => {
+          if (item.type === "paragraph") {
+            return <p key={item.id}>{item.content}</p>;
           }
-          if (type === "link") {
+          if (item.type === "link") {
             return (
-              <a key={id} href={url} target="_blank" rel="noreferrer">
-                {text}
+              <a key={item.id} href={item.url} target="_blank" rel="noreferrer">
+                {item.content}
               </a>
             );
           }
-          if (type === "hashtag") {
-            return <span key={id}>#{text} </span>;
+          if (item.type === "hashtag") {
+            return <span key={item.id}>#{item.content} </span>;
           }
 
           return null;

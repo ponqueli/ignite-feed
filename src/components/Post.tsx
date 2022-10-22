@@ -18,6 +18,10 @@ interface IAuthorProps {
   role: string;
 }
 
+interface ICommentProps {
+  content: string;
+}
+
 interface IPostContentProps {
   post: {
     id: number;
@@ -33,7 +37,6 @@ export function Post({ post }: IPostContentProps) {
   const [newCommentText, setNewCommentText] = useState("");
   const [comments, setComments] = useState([
     {
-      id: 1,
       content: "Muito bom! 👏👏👏",
     },
   ]);
@@ -51,7 +54,6 @@ export function Post({ post }: IPostContentProps) {
     event?.preventDefault();
 
     const newComment = {
-      id: Math.random(),
       content: newCommentText,
     };
     setComments([...comments, newComment]);
@@ -61,6 +63,11 @@ export function Post({ post }: IPostContentProps) {
   function handleNewComment() {
     setNewCommentText(event?.target.value);
   }
+
+  const deleteComment = (comment: ICommentProps) => {
+    const newComments = comments.filter((c) => c !== comment);
+    setComments(newComments);
+  };
 
   return (
     <article className={styles.post}>
@@ -95,7 +102,6 @@ export function Post({ post }: IPostContentProps) {
           if (item.type === "hashtag") {
             return <span key={item.id}>#{item.content} </span>;
           }
-
           return null;
         })}
       </div>
@@ -116,7 +122,11 @@ export function Post({ post }: IPostContentProps) {
 
       <div className={styles.commentList}>
         {comments.map((comment) => (
-          <Comment key={comment.id} content={comment} />
+          <Comment
+            key={comment.content}
+            content={comment}
+            deleteComment={() => deleteComment(comment)}
+          />
         ))}
       </div>
     </article>

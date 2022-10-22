@@ -6,10 +6,16 @@ interface ICommentProps {
   content: {
     content: string;
   };
+  deleteComment: (commentContent: string) => any;
 }
 
-export function Comment({ content }: ICommentProps) {
+export function Comment({ content, deleteComment }: ICommentProps) {
   const { content: commentContent } = content;
+
+  function handleDeleteComment() {
+    deleteComment(commentContent);
+  }
+
   return (
     <div className={styles.comment}>
       <Avatar src="https://github.com/ponqueli.png" hasBorder={false} alt="" />
@@ -27,7 +33,11 @@ export function Comment({ content }: ICommentProps) {
               </time>
             </div>
 
-            <button type="button" title="Deletar comentário">
+            <button
+              type="button"
+              title="Deletar comentário"
+              onClick={handleDeleteComment}
+            >
               <Trash size={24} />
             </button>
           </header>

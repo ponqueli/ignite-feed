@@ -1,5 +1,6 @@
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useState } from "react";
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
@@ -24,6 +25,13 @@ interface IPostProps {
 export function Post({ post }: IPostProps) {
   const { author, publishedAt, content } = post;
   const { name, avatarUrl, role } = author;
+  const [newCommentText, setNewCommentText] = useState("");
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      content: "Muito bom! 👏👏👏",
+    },
+  ]);
   const publishedAtFormatted = format(
     new Date(publishedAt),
     `d 'de' LLLL 'às' HH:mm'h'`,
@@ -33,6 +41,22 @@ export function Post({ post }: IPostProps) {
     new Date(publishedAt),
     { locale: ptBR, addSuffix: true }
   );
+
+  function handleCreateNewComment() {
+    event?.preventDefault();
+
+    const newComment = {
+      id: Math.random(),
+      content: newCommentText,
+    };
+    setComments([...comments, newComment]);
+    setNewCommentText("");
+  }
+
+  function handleNewComment() {
+    setNewCommentText(event?.target.value);
+  }
+
   return (
     <article className={styles.post}>
       <header className={styles.header}>
@@ -71,9 +95,14 @@ export function Post({ post }: IPostProps) {
         })}
       </div>
 
-      <form className={styles.comentForm}>
+      <form className={styles.comentForm} onSubmit={handleCreateNewComment}>
         <strong>Deixe seu comentário</strong>
-        <textarea placeholder="Comente aqui" />
+        <textarea
+          name="comment"
+          placeholder="Comente aqui"
+          value={newCommentText}
+          onChange={handleNewComment}
+        />
 
         <footer>
           <button type="submit">Publicar</button>
@@ -81,9 +110,9 @@ export function Post({ post }: IPostProps) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map((comment) => (
+          <Comment key={comment.id} content={comment} />
+        ))}
       </div>
     </article>
   );

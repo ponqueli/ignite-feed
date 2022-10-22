@@ -16,34 +16,34 @@ const posts = [
     publishedAt: "2022-10-22 08:13:44",
     content: [
       {
-        id: 1,
+        id: 66,
         type: "paragraph",
         content: "Fala galeraa 👋",
       },
       {
-        id: 2,
+        id: 65,
         type: "paragraph",
         content:
           "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é IgniteFeed 🚀",
       },
       {
-        id: 3,
+        id: 64,
         type: "link",
         content: "jane.design/doctorcare",
         url: "https://jane.design/doctorcare",
       },
       {
-        id: 4,
+        id: 63,
         type: "hashtag",
         content: "novoprojeto",
       },
       {
-        id: 5,
+        id: 62,
         type: "hashtag",
         content: "nlw",
       },
       {
-        id: 6,
+        id: 61,
         type: "hashtag",
         content: "rocketseat",
       },
@@ -59,28 +59,34 @@ const posts = [
     publishedAt: "2022-10-21 08:13:44",
     content: [
       {
+        id: 7,
         type: "paragraph",
         content: "Fala galeraa 👋",
       },
       {
+        id: 8,
         type: "paragraph",
         content:
           "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é IgniteFeed 🚀",
       },
       {
+        id: 9,
         type: "link",
         content: "jane.design/doctorcare",
         url: "https://jane.design/doctorcare",
       },
       {
+        id: 10,
         type: "hashtag",
         content: "novoprojeto",
       },
       {
+        id: 11,
         type: "hashtag",
         content: "nlw",
       },
       {
+        id: 12,
         type: "hashtag",
         content: "rocketseat",
       },

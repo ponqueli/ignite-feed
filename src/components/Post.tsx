@@ -5,13 +5,29 @@ import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
 
-interface IPostContent {
+interface IContentProps {
   id: number;
-  type: "paragraph" | "link" | "hashtag";
+  type: string;
   content: string;
   url?: string;
 }
-export function Post({ post }: any) {
+
+interface IAuthorProps {
+  name: string;
+  avatarUrl: string;
+  role: string;
+}
+
+interface IPostContentProps {
+  post: {
+    id: number;
+    publishedAt: string;
+    content: Array<IContentProps>;
+    author: IAuthorProps;
+  };
+}
+
+export function Post({ post }: IPostContentProps) {
   const { author, publishedAt, content } = post;
   const { name, avatarUrl, role } = author;
   const [newCommentText, setNewCommentText] = useState("");
@@ -65,7 +81,7 @@ export function Post({ post }: any) {
       </header>
 
       <div className={styles.content}>
-        {content.map((item: IPostContent) => {
+        {content.map((item) => {
           if (item.type === "paragraph") {
             return <p key={item.id}>{item.content}</p>;
           }

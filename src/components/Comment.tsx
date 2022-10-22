@@ -7,6 +7,7 @@ interface ICommentProps {
     content: string;
   };
 }
+
 export function Comment({ content }: ICommentProps) {
   const { content: commentContent } = content;
   return (
@@ -19,7 +20,7 @@ export function Comment({ content }: ICommentProps) {
             <div className={styles.authorAndTime}>
               <strong>José Antonio</strong>
               <time
-                title="16 de Outubro às 08:13 "
+                title="16 de Outubro às 08:13"
                 dateTime="2022-10-16 08:13:44"
               >
                 Cerca de 1 hora atrás

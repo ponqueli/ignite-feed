@@ -12,7 +12,7 @@ interface IAuthorProps {
 }
 interface IContentProps {
   id: number;
-  type: string | "paragraph" | "link" | "hashtag";
+  type: string;
   content: string;
   url?: string;
 }

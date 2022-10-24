@@ -61,13 +61,22 @@ export function Post({ post }: IPostContentProps) {
   }
 
   function handleNewComment() {
+    event?.target.setCustomValidity("");
     setNewCommentText(event?.target.value);
   }
 
-  const deleteComment = (comment: ICommentProps) => {
-    const newComments = comments.filter((c) => c !== comment);
-    setComments(newComments);
+  const deleteComment = (commentToDelete: ICommentProps) => {
+    const commentsWithoutDeletedOne = comments.filter(
+      (comment) => comment !== commentToDelete
+    );
+    setComments(commentsWithoutDeletedOne);
   };
+
+  const handleNewCommentValid = () => {
+    event?.target.setCustomValidity("Campo obrigatório!");
+  };
+
+  const isNewCommentEmpty = newCommentText?.trim().length === 0;
 
   return (
     <article className={styles.post}>
@@ -113,10 +122,14 @@ export function Post({ post }: IPostContentProps) {
           placeholder="Comente aqui"
           value={newCommentText}
           onChange={handleNewComment}
+          onInvalid={handleNewCommentValid}
+          required
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
@@ -125,7 +138,7 @@ export function Post({ post }: IPostContentProps) {
           <Comment
             key={comment.content}
             content={comment}
-            deleteComment={() => deleteComment(comment)}
+            onDeleteComment={() => deleteComment(comment)}
           />
         ))}
       </div>

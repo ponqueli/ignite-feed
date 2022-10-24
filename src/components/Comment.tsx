@@ -6,14 +6,14 @@ interface ICommentProps {
   content: {
     content: string;
   };
-  deleteComment: (commentContent: string) => any;
+  onDeleteComment: (commentContent: string) => any;
 }
 
-export function Comment({ content, deleteComment }: ICommentProps) {
+export function Comment({ content, onDeleteComment }: ICommentProps) {
   const { content: commentContent } = content;
 
   function handleDeleteComment() {
-    deleteComment(commentContent);
+    onDeleteComment(commentContent);
   }
 
   return (

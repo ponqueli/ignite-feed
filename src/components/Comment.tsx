@@ -4,18 +4,21 @@ import { Avatar } from "./Avatar";
 import styles from "./Comment.module.css";
 
 interface ICommentProps {
-  content: {
-    content: string;
-  };
-  onDeleteComment: (commentContent: string) => any;
+  content: string;
+  onDeleteComment: (comment: string) => void;
 }
 
 export function Comment({ content, onDeleteComment }: ICommentProps) {
-  const { content: commentContent } = content;
   const [likeCount, setLikeCount] = useState(0);
 
   function handleDeleteComment() {
-    onDeleteComment(commentContent);
+    onDeleteComment(content);
+  }
+
+  function handleLikeComment() {
+    setLikeCount((state) => {
+      return state + 1;
+    });
   }
 
   return (
@@ -43,13 +46,13 @@ export function Comment({ content, onDeleteComment }: ICommentProps) {
               <Trash size={24} />
             </button>
           </header>
-          <p>{commentContent}</p>
+          <p>{content}</p>
         </div>
         <footer>
           <button
             type="button"
             title="Curtir comentário"
-            onClick={() => setLikeCount(likeCount + 1)}
+            onClick={handleLikeComment}
           >
             <ThumbsUp size={20} />
             Aplaudir <span>{likeCount}</span>

@@ -1,79 +1,65 @@
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
-
-interface IContentProps {
-  id: number;
-  type: string;
-  content: string;
-  url?: string;
-}
 
 interface IAuthorProps {
   name: string;
   avatarUrl: string;
   role: string;
 }
-
-interface ICommentProps {
+interface IContentProps {
+  id: number;
+  type: string | "paragraph" | "link" | "hashtag";
   content: string;
+  url?: string;
 }
 
-interface IPostContentProps {
-  post: {
-    id: number;
-    publishedAt: string;
-    content: Array<IContentProps>;
-    author: IAuthorProps;
-  };
+interface IPostProps {
+  publishedAt: string;
+  content: IContentProps[];
+  author: IAuthorProps;
 }
 
-export function Post({ post }: IPostContentProps) {
-  const { author, publishedAt, content } = post;
+export function Post({ author, publishedAt, content }: IPostProps) {
   const { name, avatarUrl, role } = author;
   const [newCommentText, setNewCommentText] = useState("");
-  const [comments, setComments] = useState([
-    {
-      content: "Muito bom! 👏👏👏",
-    },
-  ]);
+  const [comments, setComments] = useState(["Muito bom! 👏👏👏"]);
+
   const publishedAtFormatted = format(
     new Date(publishedAt),
     `d 'de' LLLL 'às' HH:mm'h'`,
     { locale: ptBR }
   );
+
   const publishedDateRelativeToNow = formatDistanceToNow(
     new Date(publishedAt),
     { locale: ptBR, addSuffix: true }
   );
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event?.preventDefault();
 
-    const newComment = {
-      content: newCommentText,
-    };
-    setComments([...comments, newComment]);
+    setComments([...comments, newCommentText]);
     setNewCommentText("");
   }
 
-  function handleNewComment() {
+  function handleNewComment(event: ChangeEvent<HTMLTextAreaElement>) {
     event?.target.setCustomValidity("");
     setNewCommentText(event?.target.value);
   }
 
-  const deleteComment = (commentToDelete: ICommentProps) => {
+  const handleNewCommentValid = (event: InvalidEvent<HTMLTextAreaElement>) => {
+    event?.target.setCustomValidity("Campo obrigatório!");
+  };
+
+  const deleteComment = (commentToDelete: string) => {
     const commentsWithoutDeletedOne = comments.filter(
       (comment) => comment !== commentToDelete
     );
     setComments(commentsWithoutDeletedOne);
-  };
-
-  const handleNewCommentValid = () => {
-    event?.target.setCustomValidity("Campo obrigatório!");
   };
 
   const isNewCommentEmpty = newCommentText?.trim().length === 0;
@@ -136,9 +122,9 @@ export function Post({ post }: IPostContentProps) {
       <div className={styles.commentList}>
         {comments.map((comment) => (
           <Comment
-            key={comment.content}
+            key={comment}
             content={comment}
-            onDeleteComment={() => deleteComment(comment)}
+            onDeleteComment={deleteComment}
           />
         ))}
       </div>

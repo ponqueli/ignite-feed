@@ -12,7 +12,7 @@
   <li><a href="#tecnologias-utilizadas">Tecnologias utilizadas</a></li>
   <li><a href="#instalação-e-utilização">Instalação e utilização</a></li>
   <li><a href="#vite-js">ViteJS</a></li>
-  
+  <li><a href="https://ignite-feed-steel.vercel.app/" target="_blank">Clique aqui e veja a beleza</a></li>  
 </ol>
 
 ## Visão geral do projeto
